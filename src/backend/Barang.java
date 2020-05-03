@@ -144,20 +144,8 @@ public class Barang {
                     +"      )";
             this.id_barang = DB_Helper.insertQueryGetId(SQL);
         }
-//        else{
-//            String SQL = "UPDATE barang SET"
-//                    +"      jenis_barang = '"+ this.jenis +"', "
-//                    +"      nama_barang = '"+ this.nama_barang +"', "
-//                    +"      stok = '"+ this.stok +"', "
-//                    +"      harga = '"+ this.harga +"' "
-////                    +"      harga = '"+ this.id_admin +"' "
-//                    +"      WHERE id_barang = '" + this.id_barang+ "' ";
-//            DB_Helper.executeQuery(SQL);
-//        }
-    }
-    
-    public void update(){
-        String SQL = "UPDATE barang SET"
+        else{
+            String SQL = "UPDATE barang SET"
                     +"      jenis_barang = '"+ this.jenis +"', "
                     +"      nama_barang = '"+ this.nama_barang +"', "
                     +"      stok = '"+ this.stok +"', "
@@ -165,8 +153,8 @@ public class Barang {
 //                    +"      harga = '"+ this.id_admin +"' "
                     +"      WHERE id_barang = '" + this.id_barang+ "' ";
             DB_Helper.executeQuery(SQL);
+        }
     }
-    
     public void delete(){
         String SQL = "DELETE FROM barang WHERE id_barang = '"+ this.id_barang + "'";
         DB_Helper.executeQuery(SQL);
