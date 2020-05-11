@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BrgMasuk extends javax.swing.JFrame {
     Barang b = new Barang();
+    LaporanBackend l = new LaporanBackend();
     /**
      * Creates new form BrgMasuk
      */
@@ -81,6 +82,8 @@ public class BrgMasuk extends javax.swing.JFrame {
         hapusButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextId = new javax.swing.JTextField();
+        kirimButton = new javax.swing.JButton();
+        hasil = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,7 +149,7 @@ public class BrgMasuk extends javax.swing.JFrame {
             }
         });
 
-        hapusButton.setText("Kirim");
+        hapusButton.setText("Hitung");
         hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hapusButtonActionPerformed(evt);
@@ -161,6 +164,13 @@ public class BrgMasuk extends javax.swing.JFrame {
             }
         });
 
+        kirimButton.setText("Kirim");
+        kirimButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kirimButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,17 +178,7 @@ public class BrgMasuk extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tambahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ubahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -192,7 +192,20 @@ public class BrgMasuk extends javax.swing.JFrame {
                             .addComponent(jTextStok)
                             .addComponent(jTextNama)
                             .addComponent(jComboBox1, 0, 408, Short.MAX_VALUE)
-                            .addComponent(jTextId))))
+                            .addComponent(jTextId)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tambahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ubahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(kirimButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(hasil)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -220,13 +233,15 @@ public class BrgMasuk extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(37, 37, 37)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tambahButton)
                     .addComponent(ubahButton)
-                    .addComponent(hapusButton))
+                    .addComponent(hapusButton)
+                    .addComponent(hasil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kirimButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -276,13 +291,8 @@ public class BrgMasuk extends javax.swing.JFrame {
 //    }    
     private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel m = (DefaultTableModel) jTableBarang.getModel();
-        int row = jTableBarang.getSelectedRow();
-        
-        Barang br = new Barang().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
-        br.delete();
-        kosongkanForm();
-        tampilkanData();
+        Barang b = new Barang();
+        hasil.setText(Integer.toString(b.hitung(Integer.parseInt(jTextStok.getText()), Integer.parseInt(jTextHarga.getText()))));
     }//GEN-LAST:event_hapusButtonActionPerformed
 
     private void jTextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdActionPerformed
@@ -312,6 +322,17 @@ public class BrgMasuk extends javax.swing.JFrame {
         jTextStok.setText(m.getValueAt(row, 3).toString());
         jTextHarga.setText(m.getValueAt(row, 4).toString());
     }//GEN-LAST:event_jTableBarangMouseClicked
+
+    private void kirimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kirimButtonActionPerformed
+        // TODO add your handling code here:
+        LaporanBackend b = new LaporanBackend();
+        b.setId_laporan(Integer.parseInt(jTextId.getText()));
+        b.setJenis_barang(String.valueOf(jComboBox1.getSelectedItem()));
+        b.setNama_barang(jTextNama.getText());
+        b.setStok(Integer.parseInt(jTextStok.getText()));
+        b.setHarga(Integer.parseInt(jTextHarga.getText()));
+        b.save();
+    }//GEN-LAST:event_kirimButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,6 +376,7 @@ public class BrgMasuk extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton hapusButton;
+    private javax.swing.JTextField hasil;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -368,6 +390,7 @@ public class BrgMasuk extends javax.swing.JFrame {
     private javax.swing.JTextField jTextId;
     private javax.swing.JTextField jTextNama;
     private javax.swing.JTextField jTextStok;
+    private javax.swing.JButton kirimButton;
     private javax.swing.JButton tambahButton;
     private javax.swing.JButton ubahButton;
     // End of variables declaration//GEN-END:variables

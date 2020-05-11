@@ -6,6 +6,8 @@
 package frontend;
 
 import backend.Barang;
+import backend.LaporanBackend;
+import backend.TransaksiBackend;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,9 +36,27 @@ public class Laporan extends javax.swing.JFrame {
             ((DefaultTableModel)jTableBarang.getModel()).addRow(rowData);
         }
     }
+    
+    public void tampilkanData2(){
+        String[] kolom = {"ID Laporan", "Jenis Barang", "Nama Barang","Stok","Harga"};
+        ArrayList<LaporanBackend> list = new LaporanBackend().getAll();
+        Object rowData[] = new Object[5];
+        
+        jTableTransaksi.setModel(new DefaultTableModel(new Object[][] {}, kolom));
+        for (LaporanBackend tr : list) {
+            rowData[0] = tr.getId_laporan();
+            rowData[1] = tr.getJenis_barang();
+            rowData[2] = tr.getNama_barang();
+            rowData[3] = tr.getStok();
+            rowData[4] = tr.getHarga();
+            
+            ((DefaultTableModel)jTableTransaksi.getModel()).addRow(rowData);
+        }
+    }
     public Laporan() {
         initComponents();
         tampilkanData();
+        tampilkanData2();
     }
 
     /**
@@ -52,6 +72,13 @@ public class Laporan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
         logout = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableTransaksi = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        logout1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,29 +98,76 @@ public class Laporan extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableBarang);
 
-        logout.setText("Logout");
+        logout.setText("Hapus Barang");
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutActionPerformed(evt);
             }
         });
 
+        jTableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableTransaksi);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel2.setText("TRANSAKSI");
+
+        logout1.setText("Hapus Transaksi");
+        logout1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logout1ActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Logout");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(jLabel1)
+                        .addGap(0, 198, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(287, 287, 287)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logout1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,21 +175,48 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(logout)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(logout))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(logout1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        FormLoginPengawas logout = new FormLoginPengawas();
+        logout.setLocationRelativeTo(null);
+        logout.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
-        FormLoginPengawas m =  new FormLoginPengawas();
-                m.setVisible(true);
-                this.setVisible(false);
+        DefaultTableModel m = (DefaultTableModel) jTableBarang.getModel();
+        int row = jTableBarang.getSelectedRow();
+
+        Barang br = new Barang().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
+        br.delete();
+        tampilkanData();
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void logout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel m = (DefaultTableModel) jTableTransaksi.getModel();
+        int row = jTableTransaksi.getSelectedRow();
+
+        TransaksiBackend br = new TransaksiBackend().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
+        br.delete();
+        tampilkanData2();
+    }//GEN-LAST:event_logout1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,8 +256,15 @@ public class Laporan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBarang;
+    private javax.swing.JTable jTableTransaksi;
     private javax.swing.JButton logout;
+    private javax.swing.JButton logout1;
     // End of variables declaration//GEN-END:variables
 }

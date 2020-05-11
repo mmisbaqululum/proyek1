@@ -6,6 +6,7 @@
 package frontend;
 
 import backend.Barang;
+import backend.LaporanBackend;
 import backend.TransaksiBackend;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -66,11 +67,13 @@ public class Transaksi extends javax.swing.JFrame {
         ubahButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         tambahButton = new javax.swing.JButton();
-        hapusButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextJumlah = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextTotal = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextId = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,16 +112,19 @@ public class Transaksi extends javax.swing.JFrame {
             }
         });
 
-        hapusButton.setText("Kirim");
-        hapusButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusButtonActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("JUMLAH");
 
         jLabel3.setText("TOTAL");
+
+        jLabel4.setText("ID DETAIL TRANSAKSI");
+
+        jTextId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextIdActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Laporan");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,43 +135,52 @@ public class Transaksi extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
+                                .addGap(306, 306, 306)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tambahButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(ubahButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(hapusButton)))))
+                                .addComponent(tambahButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(ubahButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 131, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextTotal)
                                     .addComponent(jTextJumlah)
-                                    .addComponent(jTextHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))))))
+                                    .addComponent(jTextHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                                    .addComponent(jTextTotal, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,13 +196,13 @@ public class Transaksi extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hapusButton)
+                    .addComponent(ubahButton)
                     .addComponent(tambahButton)
-                    .addComponent(ubahButton))
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -202,6 +217,8 @@ public class Transaksi extends javax.swing.JFrame {
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
         // TODO add your handling code here:
         TransaksiBackend t = new TransaksiBackend();
+        t.setId_detail_transaksi(Integer.parseInt(jTextId.getText()));
+        t.setJenis_barang(String.valueOf(jComboBox1.getSelectedItem()));
         t.setHarga(Integer.parseInt(jTextHarga.getText()));
         t.setJumlah(Integer.parseInt(jTextJumlah.getText()));
         t.setTotal(Integer.parseInt(jTextTotal.getText()));
@@ -210,16 +227,9 @@ public class Transaksi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tambahButtonActionPerformed
 
-    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+    private void jTextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel m = (DefaultTableModel) jTableTransaksi.getModel();
-        int row = jTableTransaksi.getSelectedRow();
-
-        TransaksiBackend tr = new TransaksiBackend().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
-        tr.delete();
-        kosongkanForm();
-        tampilkanData();
-    }//GEN-LAST:event_hapusButtonActionPerformed
+    }//GEN-LAST:event_jTextIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,16 +268,18 @@ public class Transaksi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton hapusButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTransaksi;
     private javax.swing.JTextField jTextHarga;
+    private javax.swing.JTextField jTextId;
     private javax.swing.JTextField jTextJumlah;
     private javax.swing.JTextField jTextTotal;
     private javax.swing.JButton tambahButton;

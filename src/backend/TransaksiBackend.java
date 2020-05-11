@@ -15,30 +15,40 @@ import java.lang.String;
  */
 public class TransaksiBackend {
     public int id_detail_transaksi,id_transaksi,id_barang,harga,jumlah,total;
-    public enum jenis_barang{
-        Kering(1),Basah(2);
-        private int value;
-        
-        private jenis_barang(int value) {
-        this.value = value;
-        }
+    public String jenis_barang;
+//    public enum jenis_barang{
+//        Kering(1),Basah(2);
+//        private int value;
+//        
+//        private jenis_barang(int value) {
+//        this.value = value;
+//        }
+//
+//        public int getJenis() {
+//            return value;
+//        }
+//        //Just for testing from some SO answers, but no use
+//        public void setJenis(int value) {
+//            this.value = value;
+//        }
+//    }
 
-        public int getJenis() {
-            return value;
-        }
-        //Just for testing from some SO answers, but no use
-        public void setJenis(int value) {
-            this.value = value;
-        }
+    public String getJenis_barang() {
+        return jenis_barang;
+    }
+
+    public void setJenis_barang(String jenis_barang) {
+        this.jenis_barang = jenis_barang;
     }
 
     public TransaksiBackend() {
     }
 
-    public TransaksiBackend(int id_detail_transaksi, int id_transaksi, int id_barang, int harga, int jumlah, int total) {
+    public TransaksiBackend(int id_detail_transaksi, int id_transaksi, int id_barang,String jenis_barang, int harga, int jumlah, int total) {
         this.id_detail_transaksi = id_detail_transaksi;
         this.id_transaksi = id_transaksi;
         this.id_barang = id_barang;
+        this.jenis_barang = jenis_barang;
         this.harga = harga;
         this.jumlah = jumlah;
         this.total = total;
@@ -102,8 +112,9 @@ public class TransaksiBackend {
             while (rs.next()) {
                 tr = new TransaksiBackend(); 
                 tr.setId_detail_transaksi(rs.getInt("id_detail_transaksi"));
-                tr.setId_transaksi(rs.getInt("id_transaksi"));
-                tr.setId_barang(rs.getInt("id_barang"));
+                //tr.setId_transaksi(rs.getInt("id_transaksi"));
+                //tr.setId_barang(rs.getInt("id_barang"));
+                tr.setJenis_barang(rs.getString("jenis_barang"));
                 tr.setHarga(rs.getInt("harga"));
                 tr.setJumlah(rs.getInt("jumlah"));
                 tr.setTotal(rs.getInt("total"));
@@ -123,6 +134,7 @@ public class TransaksiBackend {
                 tr.setId_detail_transaksi(rs.getInt("id_detail_transaksi"));
                 tr.setId_transaksi(rs.getInt("id_transaksi"));
                 tr.setId_barang(rs.getInt("id_barang"));
+                tr.setJenis_barang(rs.getString("jenis_barang"));
                 tr.setHarga(rs.getInt("harga"));
                 tr.setJumlah(rs.getInt("jumlah"));
                 tr.setTotal(rs.getInt("total"));
@@ -136,15 +148,17 @@ public class TransaksiBackend {
     
     public void save(){
         if(getById(id_detail_transaksi).getId_detail_transaksi()== 0){
-            String SQL = "INSERT INTO detail_transaksi (harga,jumlah,total) VALUES("
+            String SQL = "INSERT INTO detail_transaksi (jenis_barang,harga,jumlah,total) VALUES("
+                    +"      '"+ this.jenis_barang +"', "
                     +"      '"+ this.harga +"', "
                     +"      '"+ this.jumlah +"', "
                     +"      '"+ this.total +"' "
                     +"      );";
-            this.id_barang = DB_Helper.insertQueryGetId(SQL);
+            this.id_detail_transaksi = DB_Helper.insertQueryGetId(SQL);
         }
         else{
             String SQL = "UPDATE detail_transaksi SET"
+                    +"      jenis_barang = '"+ this.jenis_barang +"', "
                     +"      harga = '"+ this.harga +"', "
                     +"      jumlah = '"+ this.jumlah +"', "
                     +"      total = '"+ this.total +"' "

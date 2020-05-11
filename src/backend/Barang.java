@@ -165,4 +165,8 @@ public class Barang {
     public String toString() {
         return nama_barang;
     }
+    
+    public int hitung(int stok, int harga){
+        return stok * harga;
+    }
 }
