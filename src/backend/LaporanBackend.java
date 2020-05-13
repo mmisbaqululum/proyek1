@@ -13,16 +13,25 @@ import java.util.ArrayList;
  * @author owner
  */
 public class LaporanBackend {
-    public int id_laporan,harga,stok;
+    public int id_laporan,harga,stok,total;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
     public String jenis_barang,nama_barang;
 
     public LaporanBackend() {
     }
 
-    public LaporanBackend(int id_laporan, int harga, int stok,String jenis_barang,String nama_barang) {
+    public LaporanBackend(int id_laporan, int harga, int stok,int total ,String jenis_barang,String nama_barang) {
         this.id_laporan = id_laporan;
         this.harga = harga;
         this.stok = stok;
+        this.total = total;
         this.nama_barang = nama_barang;
         this.jenis_barang = jenis_barang;
     }
@@ -83,6 +92,7 @@ public class LaporanBackend {
                 tr.setNama_barang(rs.getString("nama_barang"));              
                 tr.setStok(rs.getInt("stok"));
                 tr.setHarga(rs.getInt("harga"));
+                tr.setTotal(rs.getInt("total"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,6 +111,7 @@ public class LaporanBackend {
                 tr.setNama_barang(rs.getString("nama_barang"));
                 tr.setStok(rs.getInt("stok"));
                 tr.setHarga(rs.getInt("harga"));
+                tr.setTotal(rs.getInt("total"));
                 ListLaporan.add(tr);
             }
         } catch (Exception e) {
@@ -109,13 +120,24 @@ public class LaporanBackend {
         return ListLaporan;
     }
     
-    public void save(){
-        if(getById(id_laporan).getId_laporan()== 0){
-            String SQL = "INSERT INTO laporan(jenis_barang,nama_barang,stok,harga) VALUE("
+    public void kirim(){
+        String SQL = "INSERT INTO laporan(jenis_barang,nama_barang,stok,harga,total) VALUE("
                     +"      '"+ this.jenis_barang +"', "
                     +"      '"+ this.nama_barang +"', "
                     +"      '"+ this.stok +"', "
                     +"      '"+ this.harga +"', "
+                    +"      '"+ this.total + "');";
+            this.id_laporan = DB_Helper.insertQueryGetId(SQL);
+    }
+    
+    public void save(){
+        if(getById(id_laporan).getId_laporan()== 0){
+            String SQL = "INSERT INTO laporan(jenis_barang,nama_barang,stok,harga,total) VALUE("
+                    +"      '"+ this.jenis_barang +"', "
+                    +"      '"+ this.nama_barang +"', "
+                    +"      '"+ this.stok +"', "
+                    +"      '"+ this.harga +"', "
+                    +"      '"+ this.total +"', "
                     +"      );";
             this.id_laporan = DB_Helper.insertQueryGetId(SQL);
         }
@@ -125,6 +147,7 @@ public class LaporanBackend {
                     +"      nama_barang = '"+ this.nama_barang +"', "
                     +"      stok = '"+ this.stok +"', "
                     +"      harga = '"+ this.harga +"', "
+                    +"      total = '"+ this.total +"', "
                     +"      WHERE id_laporan = '" + this.id_laporan+ "' ";
             DB_Helper.executeQuery(SQL);
         }

@@ -16,47 +16,49 @@ import javax.swing.table.DefaultTableModel;
  * @author owner
  */
 public class Laporan extends javax.swing.JFrame {
-    Barang b = new Barang();
+    LaporanBackend b = new LaporanBackend();
     /**
      * Creates new form Laporan
      */
     
     public void tampilkanData(){
-        String[] kolom = {"Id Barang", "Nama Barang", "Stok", "Harga"};
-        ArrayList<Barang> list = new Barang().getAll();
-        Object rowData[] = new Object[4];
+        String[] kolom = {"Id Laporan", "Jenis Barang", "Nama Barang", "Stok", "Harga", "Harga Total"};
+        ArrayList<LaporanBackend> list = new LaporanBackend().getAll();
+        Object rowData[] = new Object[6];
         
         jTableBarang.setModel(new DefaultTableModel(new Object[][] {}, kolom));
-        for (Barang br : list) {
-            rowData[0] = br.getId_barang();
-            rowData[1] = br.getNama_barang();
-            rowData[2] = br.getStok();
-            rowData[3] = br.getHarga();
+        for (LaporanBackend br : list) {
+            rowData[0] = br.getId_laporan();
+            rowData[1] = br.getJenis_barang();
+            rowData[2] = br.getNama_barang();
+            rowData[3] = br.getStok();
+            rowData[4] = br.getHarga();
+            rowData[5] = br.getTotal();
             
             ((DefaultTableModel)jTableBarang.getModel()).addRow(rowData);
         }
     }
     
-    public void tampilkanData2(){
-        String[] kolom = {"ID Laporan", "Jenis Barang", "Nama Barang","Stok","Harga"};
-        ArrayList<LaporanBackend> list = new LaporanBackend().getAll();
-        Object rowData[] = new Object[5];
-        
-        jTableTransaksi.setModel(new DefaultTableModel(new Object[][] {}, kolom));
-        for (LaporanBackend tr : list) {
-            rowData[0] = tr.getId_laporan();
-            rowData[1] = tr.getJenis_barang();
-            rowData[2] = tr.getNama_barang();
-            rowData[3] = tr.getStok();
-            rowData[4] = tr.getHarga();
-            
-            ((DefaultTableModel)jTableTransaksi.getModel()).addRow(rowData);
-        }
-    }
+//    public void tampilkanData2(){
+//        String[] kolom = {"ID Laporan", "Jenis Barang", "Nama Barang","Stok","Harga"};
+//        ArrayList<LaporanBackend> list = new LaporanBackend().getAll();
+//        Object rowData[] = new Object[5];
+//        
+//        jTableTransaksi.setModel(new DefaultTableModel(new Object[][] {}, kolom));
+//        for (LaporanBackend tr : list) {
+//            rowData[0] = tr.getId_laporan();
+//            rowData[1] = tr.getJenis_barang();
+//            rowData[2] = tr.getNama_barang();
+//            rowData[3] = tr.getStok();
+//            rowData[4] = tr.getHarga();
+//            
+//            ((DefaultTableModel)jTableTransaksi.getModel()).addRow(rowData);
+//        }
+//    }
     public Laporan() {
         initComponents();
         tampilkanData();
-        tampilkanData2();
+//        tampilkanData2();
     }
 
     /**
@@ -72,10 +74,7 @@ public class Laporan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
         logout = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableTransaksi = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        logout1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -105,26 +104,10 @@ public class Laporan extends javax.swing.JFrame {
             }
         });
 
-        jTableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTableTransaksi);
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel2.setText("TRANSAKSI");
-
-        logout1.setText("Hapus Transaksi");
-        logout1.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Kembali");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logout1ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -150,24 +133,18 @@ public class Laporan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane2)))
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
                         .addComponent(jLabel1)
                         .addGap(0, 198, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(287, 287, 287)
-                .addComponent(jLabel2)
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logout1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,13 +155,9 @@ public class Laporan extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(logout))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(logout1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(logout)
+                    .addComponent(jButton1))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,15 +181,12 @@ public class Laporan extends javax.swing.JFrame {
         tampilkanData();
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void logout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel m = (DefaultTableModel) jTableTransaksi.getModel();
-        int row = jTableTransaksi.getSelectedRow();
-
-        TransaksiBackend br = new TransaksiBackend().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
-        br.delete();
-        tampilkanData2();
-    }//GEN-LAST:event_logout1ActionPerformed
+        BrgMasuk f = new BrgMasuk();
+        f.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,16 +225,13 @@ public class Laporan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBarang;
-    private javax.swing.JTable jTableTransaksi;
     private javax.swing.JButton logout;
-    private javax.swing.JButton logout1;
     // End of variables declaration//GEN-END:variables
 }

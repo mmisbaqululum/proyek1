@@ -10,7 +10,9 @@ import javax.swing.JTable;
 import backend.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -325,13 +327,24 @@ public class BrgMasuk extends javax.swing.JFrame {
 
     private void kirimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kirimButtonActionPerformed
         // TODO add your handling code here:
-        LaporanBackend b = new LaporanBackend();
-        b.setId_laporan(Integer.parseInt(jTextId.getText()));
-        b.setJenis_barang(String.valueOf(jComboBox1.getSelectedItem()));
-        b.setNama_barang(jTextNama.getText());
-        b.setStok(Integer.parseInt(jTextStok.getText()));
-        b.setHarga(Integer.parseInt(jTextHarga.getText()));
-        b.save();
+        LaporanBackend l = new LaporanBackend();
+        l.setId_laporan(Integer.parseInt(jTextId.getText()));
+        l.setJenis_barang(String.valueOf(jComboBox1.getSelectedItem()));
+        l.setNama_barang(jTextNama.getText());
+        l.setStok(Integer.parseInt(jTextStok.getText()));
+        l.setHarga(Integer.parseInt(jTextHarga.getText()));
+        l.setTotal(Integer.parseInt(hasil.getText()));
+        l.kirim();
+        //coba
+        
+        
+        Laporan f = new Laporan();
+        f.setVisible(true);
+        this.setVisible(false);
+        tampilkanData();
+        JOptionPane.showMessageDialog(null,"Berhasil Menambah Data Ke Laporan");
+        Barang b = new Barang();
+        b.delete();
     }//GEN-LAST:event_kirimButtonActionPerformed
 
     /**
