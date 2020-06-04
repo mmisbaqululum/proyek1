@@ -23,10 +23,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jScrollPane1" alignment="0" pref="724" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="700" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -55,9 +55,15 @@
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="kirimButton" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="hapusButton" min="-2" pref="110" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="hasil" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jButtonKurang" max="32767" attributes="0"/>
+                          <Component id="hitungButton" pref="110" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextSisa" max="32767" attributes="0"/>
+                          <Component id="hasil" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -94,17 +100,22 @@
                   <Component id="jTextHarga" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonKurang" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextSisa" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tambahButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ubahButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="hapusButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="hitungButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="hasil" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="kirimButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="208" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -206,12 +217,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ubahButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="hapusButton">
+    <Component class="javax.swing.JButton" name="hitungButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Hitung"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hapusButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hitungButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -233,6 +244,16 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="hasil">
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonKurang">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Stok Sisa"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKurangActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextSisa">
     </Component>
   </SubComponents>
 </Form>

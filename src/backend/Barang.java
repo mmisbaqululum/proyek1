@@ -166,7 +166,11 @@ public class Barang {
         return nama_barang;
     }
     
-    public int hitung(int stok, int harga){
-        return stok * harga;
+    public int hitung(int jumlah,int harga){
+        return jumlah * harga;
+    }
+    
+    public int kurang(int awal, int stok){
+        return awal-stok;
     }
 }

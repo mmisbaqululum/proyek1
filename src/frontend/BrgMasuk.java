@@ -33,9 +33,9 @@ public class BrgMasuk extends javax.swing.JFrame {
     }
     
     public void tampilkanData(){
-        String[] kolom = {"Id Barang", "Jenis Barang", "Nama Barang", "Stok", "Harga"};
+        String[] kolom = {"Id Barang", "Jenis Barang", "Nama Barang", "Stok", "Harga", "Total"};
         ArrayList<Barang> list = new Barang().getAll();
-        Object rowData[] = new Object[5];
+        Object rowData[] = new Object[6];
         
         jTableBarang.setModel(new DefaultTableModel(new Object[][] {}, kolom));
         for (Barang br : list) {
@@ -44,6 +44,7 @@ public class BrgMasuk extends javax.swing.JFrame {
             rowData[2] = br.getNama_barang();
             rowData[3] = br.getStok();
             rowData[4] = br.getHarga();
+            rowData[5] = br.getStok() * br.getHarga();
             
             ((DefaultTableModel)jTableBarang.getModel()).addRow(rowData);
         }
@@ -56,8 +57,6 @@ public class BrgMasuk extends javax.swing.JFrame {
         jTextStok.setText("");
         jTextHarga.setText("");        
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,11 +80,13 @@ public class BrgMasuk extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBarang = new javax.swing.JTable();
         ubahButton = new javax.swing.JButton();
-        hapusButton = new javax.swing.JButton();
+        hitungButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextId = new javax.swing.JTextField();
         kirimButton = new javax.swing.JButton();
         hasil = new javax.swing.JTextField();
+        jButtonKurang = new javax.swing.JButton();
+        jTextSisa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,10 +152,10 @@ public class BrgMasuk extends javax.swing.JFrame {
             }
         });
 
-        hapusButton.setText("Hitung");
-        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+        hitungButton.setText("Hitung");
+        hitungButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusButtonActionPerformed(evt);
+                hitungButtonActionPerformed(evt);
             }
         });
 
@@ -173,14 +174,21 @@ public class BrgMasuk extends javax.swing.JFrame {
             }
         });
 
+        jButtonKurang.setText("Stok Sisa");
+        jButtonKurang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKurangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -205,9 +213,13 @@ public class BrgMasuk extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addComponent(kirimButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(hasil)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonKurang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hitungButton, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextSisa)
+                            .addComponent(hasil))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -235,16 +247,20 @@ public class BrgMasuk extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonKurang)
+                    .addComponent(jTextSisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tambahButton)
                     .addComponent(ubahButton)
-                    .addComponent(hapusButton)
+                    .addComponent(hitungButton)
                     .addComponent(hasil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kirimButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(5, 5, 5))
         );
 
         pack();
@@ -291,11 +307,11 @@ public class BrgMasuk extends javax.swing.JFrame {
 //        
 //
 //    }    
-    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+    private void hitungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitungButtonActionPerformed
         // TODO add your handling code here:
         Barang b = new Barang();
-        hasil.setText(Integer.toString(b.hitung(Integer.parseInt(jTextStok.getText()), Integer.parseInt(jTextHarga.getText()))));
-    }//GEN-LAST:event_hapusButtonActionPerformed
+        hasil.setText(Integer.toString(b.hitung(Integer.parseInt(jTextStok.getText()),Integer.parseInt(jTextHarga.getText()))));
+    }//GEN-LAST:event_hitungButtonActionPerformed
 
     private void jTextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdActionPerformed
         // TODO add your handling code here:
@@ -335,6 +351,18 @@ public class BrgMasuk extends javax.swing.JFrame {
         l.setHarga(Integer.parseInt(jTextHarga.getText()));
         l.setTotal(Integer.parseInt(hasil.getText()));
         l.kirim();
+        Barang b=new Barang();
+        b.setId_barang(Integer.parseInt(jTextId.getText()));
+        b.setJenis(String.valueOf(jComboBox1.getSelectedItem()));
+        b.setNama_barang(jTextNama.getText());
+        b.setStok(Integer.parseInt(jTextSisa.getText()));
+        b.setHarga(Integer.parseInt(jTextHarga.getText()));
+        b.save();
+        tampilkanData();
+        
+        //b.delete();
+  
+
         //coba
         
         
@@ -342,10 +370,17 @@ public class BrgMasuk extends javax.swing.JFrame {
         f.setVisible(true);
         this.setVisible(false);
         tampilkanData();
-        JOptionPane.showMessageDialog(null,"Berhasil Menambah Data Ke Laporan");
-        Barang b = new Barang();
-        b.delete();
+        JOptionPane.showMessageDialog(null,"Berhasil Menambah Data Ke Laporan");   
     }//GEN-LAST:event_kirimButtonActionPerformed
+
+    private void jButtonKurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKurangActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel m = (DefaultTableModel) jTableBarang.getModel();
+        int row = jTableBarang.getSelectedRow();
+        String awal=m.getValueAt(row, 3).toString();
+        Barang b = new Barang();
+        jTextSisa.setText(Integer.toString(b.kurang(Integer.parseInt(awal),Integer.parseInt(jTextStok.getText()))));
+    }//GEN-LAST:event_jButtonKurangActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,8 +423,9 @@ public class BrgMasuk extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton hapusButton;
     private javax.swing.JTextField hasil;
+    private javax.swing.JButton hitungButton;
+    private javax.swing.JButton jButtonKurang;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -402,6 +438,7 @@ public class BrgMasuk extends javax.swing.JFrame {
     private javax.swing.JTextField jTextHarga;
     private javax.swing.JTextField jTextId;
     private javax.swing.JTextField jTextNama;
+    private javax.swing.JTextField jTextSisa;
     private javax.swing.JTextField jTextStok;
     private javax.swing.JButton kirimButton;
     private javax.swing.JButton tambahButton;

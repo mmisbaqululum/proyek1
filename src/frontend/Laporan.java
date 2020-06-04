@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class Laporan extends javax.swing.JFrame {
     LaporanBackend b = new LaporanBackend();
     /**
-     * Creates new form Laporan
+     * 
      */
     
     public void tampilkanData(){
@@ -26,7 +26,7 @@ public class Laporan extends javax.swing.JFrame {
         ArrayList<LaporanBackend> list = new LaporanBackend().getAll();
         Object rowData[] = new Object[6];
         
-        jTableBarang.setModel(new DefaultTableModel(new Object[][] {}, kolom));
+        jTableLaporan.setModel(new DefaultTableModel(new Object[][] {}, kolom));
         for (LaporanBackend br : list) {
             rowData[0] = br.getId_laporan();
             rowData[1] = br.getJenis_barang();
@@ -35,7 +35,7 @@ public class Laporan extends javax.swing.JFrame {
             rowData[4] = br.getHarga();
             rowData[5] = br.getTotal();
             
-            ((DefaultTableModel)jTableBarang.getModel()).addRow(rowData);
+            ((DefaultTableModel)jTableLaporan.getModel()).addRow(rowData);
         }
     }
     
@@ -72,8 +72,8 @@ public class Laporan extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableBarang = new javax.swing.JTable();
-        logout = new javax.swing.JButton();
+        jTableLaporan = new javax.swing.JTable();
+        hapus = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -84,7 +84,7 @@ public class Laporan extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("LAPORAN BARANG MASUK");
 
-        jTableBarang.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLaporan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -95,12 +95,12 @@ public class Laporan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTableBarang);
+        jScrollPane1.setViewportView(jTableLaporan);
 
-        logout.setText("Hapus Barang");
-        logout.addActionListener(new java.awt.event.ActionListener() {
+        hapus.setText("Hapus Barang");
+        hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutActionPerformed(evt);
+                hapusActionPerformed(evt);
             }
         });
 
@@ -137,14 +137,13 @@ public class Laporan extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
                         .addComponent(jLabel1)
-                        .addGap(0, 198, Short.MAX_VALUE)))
+                        .addGap(0, 198, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,12 +151,12 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logout)
+                    .addComponent(hapus)
                     .addComponent(jButton1))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addGap(95, 95, 95))
         );
 
         pack();
@@ -171,15 +170,16 @@ public class Laporan extends javax.swing.JFrame {
         logout.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel m = (DefaultTableModel) jTableBarang.getModel();
-        int row = jTableBarang.getSelectedRow();
+        DefaultTableModel m = (DefaultTableModel) jTableLaporan.getModel();
+        int row = jTableLaporan.getSelectedRow();
 
-        Barang br = new Barang().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
+        Laporan br = new Laporan().getById(Integer.parseInt(m.getValueAt(row, 0).toString()));
         br.delete();
-        tampilkanData();
-    }//GEN-LAST:event_logoutActionPerformed
+        br.tampilkanData();
+        
+    }//GEN-LAST:event_hapusActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -225,13 +225,21 @@ public class Laporan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton hapus;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableBarang;
-    private javax.swing.JButton logout;
+    private javax.swing.JTable jTableLaporan;
     // End of variables declaration//GEN-END:variables
+
+    private Laporan getById(int parseInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

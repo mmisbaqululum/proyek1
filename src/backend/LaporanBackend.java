@@ -156,4 +156,5 @@ public class LaporanBackend {
         String SQL = "DELETE FROM laporan WHERE id_laporan= '"+ this.id_laporan + "'";
         DB_Helper.executeQuery(SQL);
     }
+    
 }
